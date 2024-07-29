@@ -1,8 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 
+'''Minerador de palavras: O programa conta todas ocorrencias de palavras de um
+site, varrendo todos os links existentes na página inicial,
+retonando um dicionario.'''
+
 
 def request_content(url: str,) -> BeautifulSoup | None:
+    '''Faz requisições e retorna um objeto BeautifulSoup.'''
     try:
         html = requests.get(url)
         bs = BeautifulSoup(html.text, 'html.parser')
@@ -12,11 +17,13 @@ def request_content(url: str,) -> BeautifulSoup | None:
 
 
 def find_all_for_tag(bs: BeautifulSoup, tag: str) -> list:
+    '''Busca todas ocorrencias de uma tag.'''
     tags = bs.find_all(tag)
     return tags
 
 
 def find_tag_content(tag: BeautifulSoup):
+    '''Mostra o conteudo de determinada tag.'''
     try:
         t = tag.get_text()
     except (AttributeError, Exception):
@@ -25,6 +32,7 @@ def find_tag_content(tag: BeautifulSoup):
 
 
 def word_separator(content: str) -> list:
+    '''Separa strings usando o separador padrão Python'''
     try:
         content = content.split()
     except Exception:
@@ -33,6 +41,8 @@ def word_separator(content: str) -> list:
 
 
 def word_analitics(content: list) -> dict:
+    '''Cria um dicionario com strings distintas e a quatidade
+    de ocorrencias.'''
     struct: dict = {}
     for word in content:
         if word not in struct:
