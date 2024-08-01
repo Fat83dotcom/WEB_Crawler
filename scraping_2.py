@@ -11,14 +11,18 @@ def request_content(url: str,) -> BeautifulSoup | None:
     try:
         html = requests.get(url)
         bs = BeautifulSoup(html.text, 'html.parser')
-    except Exception:
+    except Exception as e:
+        print(e)
         return None
     return bs
 
 
 def find_all_for_tag(bs: BeautifulSoup, tag: str) -> list:
     '''Busca todas ocorrencias de uma tag.'''
-    tags = bs.find_all(tag)
+    try:
+        tags = bs.find_all(tag)
+    except AttributeError:
+        return []
     return tags
 
 
@@ -82,10 +86,14 @@ def core(url: str) -> dict:
 
 
 # url = 'https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:P%C3%A1gina_principal'
-url = 'https://www.w3schools.com/'
+# url = 'https://www.w3schools.com/'
+# url = 'https://www.abnimoveis.com.br/'
+url = 'https://www.goiania.go.gov.br/'
 
 
 result = core(url)
 print(result)
 print(word_counter(result))
 print(counter_distinct_words(result))
+
+# print(request_content(url))
