@@ -85,15 +85,17 @@ def core(url: str) -> dict:
     return word_analitics(words)
 
 
-# url = 'https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:P%C3%A1gina_principal'
-# url = 'https://www.w3schools.com/'
-# url = 'https://www.abnimoveis.com.br/'
-url = 'https://www.goiania.go.gov.br/'
+if __name__ == '__main__':
+
+    # url = 'https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:P%C3%A1gina_principal'
+    # url = 'https://www.w3schools.com/'
+    # url = 'https://www.abnimoveis.com.br/'
+    url = 'https://www.goiania.go.gov.br/'
 
 
-result = core(url)
-print(result)
-print(word_counter(result))
-print(counter_distinct_words(result))
+    result = core(url)
+    print(result)
+    print(word_counter(result))
+    print(counter_distinct_words(result))
 
-# print(request_content(url))
+    # print(request_content(url))
