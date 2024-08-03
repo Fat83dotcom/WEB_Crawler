@@ -85,9 +85,64 @@ def search_engine(
         links: list = []
         if bs is not None:
             links = find_tags_a(bs, tag_a_regex)
-        if links:
-            search_queue.extend(links)
-        print(search_queue)
+            for link in links:
+                if link not in links_finds:
+                    links_finds.add(link)
+                    search_queue.append(link)
+            stats = core(bs.body)
+            current_page_data: dict = {
+                'current_count': counter,
+                'complete_url': target_url + extract_next_search_link,
+                'words_find_in_page': stats,
+                'total_words_from_page': word_counter(stats),
+                'distinct_words_from_page': counter_distinct_words(stats),
+            }
+            final_search['data_extract_from_pages'].append(current_page_data)
+            save_stats(current_page_data, site_name)
+        print(
+            f'Página pesquisada: {target_url + extract_next_search_link}\n'
+            f'Contagem atual: {counter}'
+        )
+
+    print(
+        f'total de páginas pesquisadas: {counter}'
+    )
+
+
+# url_wiki = 'https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:P%C3%A1gina_principal'
+# url_target_wiki = 'https://pt.wikipedia.org'
+# reg_wiki = r'^(/wiki/[^:]+)$'
+# reg_wiki = r'^(/wiki/)((?!:).)*$'
+
+
+# url_estacao = 'https://estacao.brainstormtech.com.br/'
+# url_target_estacao = 'https://estacao.brainstormtech.com.br'
+# reg_estacao = r'^(\/.*)$'
+
+
+# url_abn = 'https://www.abnimoveis.com.br/'
+# url_target_abn = 'https://www.abnimoveis.com.br'
+# # reg_abn = r'^(\/.*)$'
+# reg_abn = r'(?<=https:\/\/www\.abnimoveis\.com\.br)(\/.*)'
+
+
+# url_leo = 'https://www.leonardobraz.com.br/'
+# url_target_leo = 'https://www.leonardobraz.com.br'
+# # reg_leo = r'^(\/.*)$'
+# reg_leo = r'(?<=https:\/\/www\.leonardobraz\.com\.br)(\/.*)'
+
+
+url_pilla = 'https://www.pillaimoveis.com.br/'
+url_target_pilla = 'https://www.pillaimoveis.com.br'
+reg_pilla = r'^(\/.*)$'
+# reg_pilla = r'(?<=https:\/\/www\.pillaimoveis\.com\.br)(\/.*)'
+
+
+# search_engine(url_wiki, url_target_wiki, reg_wiki, 'wikipedia')
+# search_engine(url_estacao, url_target_estacao, reg_estacao, 'estacao')
+# search_engine(url_abn, url_target_abn, reg_abn, 'abn')
+# search_engine(url_leo, url_target_leo, reg_leo, 'leo')
+search_engine(url_pilla, url_target_pilla, reg_pilla, 'pilla')
 
 
 url = 'https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:P%C3%A1gina_principal'
