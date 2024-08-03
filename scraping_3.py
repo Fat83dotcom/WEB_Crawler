@@ -44,10 +44,16 @@ def get_any_page(main_url: str, secondary_url: str) -> BeautifulSoup | None:
 
 
 def find_tags_a(bs: BeautifulSoup, href_regex: str) -> list:
-    href_regex = re.compile(href_regex)
+    regex = re.compile(href_regex)
+    r = re.compile(r'(.+)')
     links: list = [
-        link.get('href') for link in bs.find_all('a', href=href_regex)
+        regex.findall(link.get('href')) for link in bs.find_all('a', href=r)
     ]
+    print(links)
+    links = [
+        link[0] for link in links if len(link) > 0
+    ]
+    print(links)
     return links
 
 
