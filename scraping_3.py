@@ -79,7 +79,9 @@ def search_engine(
 
     while len(search_queue) > 0:
         extract_next_search_link = search_queue.popleft()
-        bs = get_any_page(main_url, extract_next_search_link)
+        counter += 1
+        bs = get_any_page(target_url, extract_next_search_link)
+        save_links(f'{target_url + extract_next_search_link}', site_name)
         links: list = []
         if bs is not None:
             links = find_tags_a(bs, tag_a_regex)
