@@ -1,12 +1,31 @@
 from bs4 import BeautifulSoup
-from scraping_2 import request_content, find_all_for_tag
+from scraping_2 import request_content, core, counter_distinct_words
+from scraping_2 import word_counter
 import re
 from collections import deque
 
 
+def save_links(link: str, site_name: str):
+    with open(
+        f'links_found_from_{site_name}.txt', 'a+', encoding='utf-8'
+    ) as file:
+        file.write(
+            f'{link}\n'
+        )
+
+
+def save_stats(stats: dict, site_name: str):
+    with open(
+        f'stats_from_{site_name}.txt', 'a+', encoding='utf-8'
+    ) as file:
+        file.write(
+            f'{stats}\n'
+        )
+
+
 def main_url_certify(url: str) -> bool:
     reg_compile = re.compile(r'^(http(s*))(://)(\w*\.)(.*)$')
-    if re.search(reg_compile, url):
+    if reg_compile.search(url):
         return True
     return False
 
