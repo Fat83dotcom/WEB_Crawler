@@ -9,7 +9,7 @@ retonando um dicionario.'''
 def request_content(url: str,) -> BeautifulSoup | None:
     '''Faz requisições e retorna um objeto BeautifulSoup.'''
     try:
-        html = requests.get(url)
+        html = requests.get(url, allow_redirects=True)
         bs = BeautifulSoup(html.text, 'html.parser')
     except Exception as e:
         print(e)
