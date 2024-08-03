@@ -57,15 +57,25 @@ def find_tags_a(bs: BeautifulSoup, href_regex: str) -> list:
     return links
 
 
-def search_engine(initial_url: str, main_url: str, tag_a_regex: str) -> dict:
-    final_search: dict = {}
+def search_engine(
+    initial_url: str, target_url: str, tag_a_regex: str, site_name: str
+) -> dict:
+    final_search: dict = {
+        'initial_url': initial_url,
+        'target_url': target_url,
+        'total_pages_found': 0,
+        'data_extract_from_pages': []
+    }
     search_queue: deque[str] = deque()
+    links_finds: set = set()
+    counter: int = 0
 
     initial_bs = request_content(initial_url)
     initial_links = find_tags_a(initial_bs, tag_a_regex)
     search_queue.extend(initial_links)
-
-    print(search_queue)
+    links_finds = {link for link in initial_links}
+    # print(search_queue)
+    # print(links_finds)
 
     while len(search_queue) > 0:
         extract_next_search_link = search_queue.popleft()
