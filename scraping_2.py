@@ -26,7 +26,7 @@ def find_all_for_tag(bs: BeautifulSoup, tag: str) -> list:
     return tags
 
 
-def find_tag_content(tag: BeautifulSoup):
+def find_tag_content(tag: BeautifulSoup) -> str:
     '''Mostra o conteudo de determinada tag.'''
     try:
         t = tag.get_text()
@@ -69,18 +69,18 @@ def counter_distinct_words(content: dict) -> int:
     return len(content)
 
 
-def core(url: str) -> dict:
+def links_first_page(url: str) -> list:
     links = request_content(url)
 
-    links_first_page = [
+    page = [
         link.get('href') for link in find_all_for_tag(links, 'a')
     ]
+    return page
 
+
+def core(bs_tag: BeautifulSoup) -> dict:
     words: list = []
-    for link in links_first_page:
-        bs_obj = request_content(link)
-        if bs_obj is not None:
-            words += word_separator(find_tag_content(bs_obj.body))
+    words += word_separator(find_tag_content(bs_tag))
 
     return word_analitics(words)
 
@@ -92,10 +92,13 @@ if __name__ == '__main__':
     # url = 'https://www.abnimoveis.com.br/'
     url = 'https://www.goiania.go.gov.br/'
 
-
-    result = core(url)
-    print(result)
-    print(word_counter(result))
-    print(counter_distinct_words(result))
+    links = links_first_page(url)
+    for link in links:
+        bs_obj = request_content(link)
+        if bs_obj is not None:
+            result = core(bs_obj.body)
+            print(result)
+            print(word_counter(result))
+            print(counter_distinct_words(result))
 
     # print(request_content(url))
