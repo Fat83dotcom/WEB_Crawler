@@ -145,11 +145,8 @@ reg_pilla = r'^(\/.*)$'
 search_engine(url_pilla, url_target_pilla, reg_pilla, 'pilla')
 
 
-url = 'https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:P%C3%A1gina_principal'
-# url = 'https://estacao.brainstormtech.com.br/'
-url_target = 'https://pt.wikipedia.org'
-reg_wiki = r'^(/wiki/)((?!:).)*$'
+# reg = re.compile(r'(?<=https:\/\/www\.abnimoveis\.com\.br)(\/.*)$')
 
-search_engine(url, url_target, reg_wiki)
+# url = 'https://www.abnimoveis.com.br/categorias/destaques-a-venda'
 
-# print(main_url_certify(url))
+# print(reg.findall(url))
