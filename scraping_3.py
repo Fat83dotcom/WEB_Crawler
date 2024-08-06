@@ -49,11 +49,11 @@ def find_tags_a(bs: BeautifulSoup, href_regex: str) -> list:
     links: list = [
         regex.findall(link.get('href')) for link in bs.find_all('a', href=r)
     ]
-    print(links)
+    # print(links)
     links = [
         link[0] for link in links if len(link) > 0
     ]
-    print(links)
+    # print(links)
     return links
 
 
@@ -109,9 +109,9 @@ def search_engine(
     )
 
 
-# url_wiki = 'https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:P%C3%A1gina_principal'
-# url_target_wiki = 'https://pt.wikipedia.org'
-# reg_wiki = r'^(/wiki/[^:]+)$'
+url_wiki = 'https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:P%C3%A1gina_principal'
+url_target_wiki = 'https://pt.wikipedia.org'
+reg_wiki = r'^(/wiki/[^:]+)$'
 # reg_wiki = r'^(/wiki/)((?!:).)*$'
 
 
@@ -132,17 +132,17 @@ def search_engine(
 # reg_leo = r'(?<=https:\/\/www\.leonardobraz\.com\.br)(\/.*)'
 
 
-url_pilla = 'https://www.pillaimoveis.com.br/'
-url_target_pilla = 'https://www.pillaimoveis.com.br'
-reg_pilla = r'^(\/.*)$'
-# reg_pilla = r'(?<=https:\/\/www\.pillaimoveis\.com\.br)(\/.*)'
+# url_pilla = 'https://www.pillaimoveis.com.br/'
+# url_target_pilla = 'https://www.pillaimoveis.com.br'
+# reg_pilla = r'^(\/.*)$'
+# # reg_pilla = r'(?<=https:\/\/www\.pillaimoveis\.com\.br)(\/.*)'
 
 
-# search_engine(url_wiki, url_target_wiki, reg_wiki, 'wikipedia')
+search_engine(url_wiki, url_target_wiki, reg_wiki, 'wikipedia')
 # search_engine(url_estacao, url_target_estacao, reg_estacao, 'estacao')
 # search_engine(url_abn, url_target_abn, reg_abn, 'abn')
 # search_engine(url_leo, url_target_leo, reg_leo, 'leo')
-search_engine(url_pilla, url_target_pilla, reg_pilla, 'pilla')
+# search_engine(url_pilla, url_target_pilla, reg_pilla, 'pilla')
 
 
 # reg = re.compile(r'(?<=https:\/\/www\.abnimoveis\.com\.br)(\/.*)$')
