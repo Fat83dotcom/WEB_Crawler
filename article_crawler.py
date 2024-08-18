@@ -88,6 +88,36 @@ class Crawler:
             links[randint(0, (lentgh - 1))] for _ in range(number_links)
         ]
 
+    def __get_page_change_search_topic(self, site: WebSite):
+        url = ''
+        if site.topic == '':
+            url = site.search_url
+        else:
+            url = site.search_url + site.topic
+        return self.__get_page(url)
+
+    def __parse_unquote_url(self, url: str, site: WebSite) -> str:
+        '''
+        Extrai parte de uma url com uma expressão regular e decodifica essa
+        parte. É usada quando houver urls anti-robos, passando uma regex para
+        Website.
+        '''
+        if site.url_pattern != '':
+            match = re.search(site.url_pattern, url)
+            if match:
+                direct_url = urllib.parse.unquote(match.group(1))
+                return direct_url
+            else:
+                return url
+        return url
+
+    def __target_pages_engine(self, site: WebSite, target_url: str) -> Content:
+        url = self.__parse_unquote_url(target_url, site)
+        bs = self.__get_page(url)
+        title = self.__get_safe(bs, site.title_selector)
+        content = self.__get_safe(bs, site.content_selector)
+        return Content(title, content, url)
+
     def __get_target_pages(
         self, site: WebSite, target_link: list
     ):
