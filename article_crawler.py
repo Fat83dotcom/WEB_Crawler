@@ -28,7 +28,7 @@ class WebSite:
     def __init__(
         self, site_name: str, search_url: str, search_result_selector: str,
         title_selector: str, content_selector: str, topic: str, n_links: int,
-        link_complement: str, absolute_url: str
+        link_complement: str, is_absolute_url: bool, url_pattern: str
     ) -> None:
         self.site_name = site_name
         self.search_url = search_url
@@ -38,7 +38,8 @@ class WebSite:
         self.topic = topic
         self.n_links = n_links
         self.link_complement = link_complement
-        self.absolute_url = absolute_url
+        self.is_absolute_url = is_absolute_url
+        self.url_pattern = url_pattern
 
     def __iter__(self):
         return (
@@ -46,7 +47,7 @@ class WebSite:
                 self.site_name, self.search_url,
                 self.search_result_selector, self.title_selector,
                 self.content_selector, self.topic, self.n_links,
-                self.link_complement, self.absolute_url
+                self.link_complement, self.is_absolute_url, self.url_pattern
             )
         )
 
