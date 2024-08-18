@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 from random import randint, seed
 from time import time
 import requests
+import re
+import urllib
 
 
 class Content:
