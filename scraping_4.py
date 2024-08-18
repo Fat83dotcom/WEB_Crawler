@@ -28,7 +28,7 @@ class WebSite:
 
 
 class Crawler:
-    def get_page(url: str,) -> BeautifulSoup | None:
+    def get_page(self, url: str) -> BeautifulSoup | None:
         '''Faz requisições e retorna um objeto BeautifulSoup.'''
         try:
             html = requests.get(url, allow_redirects=True)
@@ -46,14 +46,24 @@ class Crawler:
             )
         return ''
 
-    def parse(self, site: WebSite, url: str):
-        bs = self.get_page(url)
+    def parse(self, site: WebSite):
+        bs = self.get_page(site.url)
         if bs is not None:
             title = self.safe_get(bs, site.title_tag)
             body = self.safe_get(bs, site.body_tag)
             if title != '' and body != '':
-                print(Content(url, title, body))
+                print(Content(site.url, title, body))
 
 
 if __name__ == '__main__':
-    pass
+    sites = [
+        ['Meu Portfólio', 'https://www.brainstormtech.com.br', 'h1', 'main']
+    ]
+
+    crawler = Crawler()
+    websites: list = []
+    for row in sites:
+        websites.append(WebSite(row[0], row[1], row[2], row[3]))
+
+    for website in websites:
+        crawler.parse(website)
