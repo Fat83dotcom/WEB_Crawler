@@ -120,22 +120,16 @@ class Crawler:
 
     def __get_target_pages(
         self, site: WebSite, target_link: list
-    ):
+    ) -> list:
         result: list = []
         for link in target_link:
             try:
-                if site.absolute_url:
-                    bs = self.__get_page(site.link_complement + link)
-                    title = self.__get_safe(bs, site.title_selector)
-                    content = self.__get_safe(bs, site.content_selector)
-                    result.append(Content(
-                        title, content, site.link_complement + link
-                    ))
+                url = ''
+                if site.is_absolute_url:
+                    url = link
                 else:
-                    bs = self.__get_page(link)
-                    title = self.__get_safe(bs, site.title_selector)
-                    content = self.__get_safe(bs, site.content_selector)
-                    result.append(Content(title, content, link))
+                    url = site.link_complement + link
+                result.append(self.__target_pages_engine(site, url))
             except Exception as e:
                 print(e)
         return result
