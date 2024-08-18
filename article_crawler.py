@@ -135,8 +135,7 @@ class Crawler:
         return result
 
     def search(self, site: WebSite) -> list[Content]:
-        print(site.search_url + site.topic)
-        bs = self.__get_page(site.search_url + site.topic)
+        bs = self.__get_page_change_search_topic(site)
         target_links = bs.select(site.search_result_selector)
         links = self.__get_from_attr(target_links, 'href')
         select_links = self.__select_random_link(links, site.n_links)
