@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: searchApp.dockerfile
+    container_name: searchApp
+    restart: always
+    env_file: 
+      - ./env_files/.env
+    volumes:
+      - ./search_app:/search_app
+    networks:
+      - internal-network
+    depends_on:
+      - postgres
+  
+  postgres:
+    image: postgres:15.7-bullseye
+    container_name: postgres
+    restart: always
+    env_file: 
+      - ./env_files/.env
+    ports:
+      - 5432:5432
+    networks:
+      - internal-network
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/data
+
+networks:
+  internal-network:
+    driver: bridge
