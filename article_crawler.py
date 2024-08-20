@@ -150,15 +150,16 @@ if __name__ == '__main__':
 
     sites = [
         [
-            'G1',
-            'https://g1.globo.com/busca/?q=',
-            'div.widget--info__text-container a',
-            'h1.content-head__title',
-            'p.content-text__container',
-            'tecnologia',
-            4,
-            'https:',
-            True
+            'BBC',
+            'https://www.bbc.com/portuguese/topics/c404v027pd4t',
+            'li.bbc-t44f9r a',
+            'h1.bbc-14gqcmb',
+            'div.bbc-1cvxiy9',
+            '',
+            2,
+            '',
+            True,
+            ''
         ],
         [
             'CNN',
@@ -167,9 +168,34 @@ if __name__ == '__main__':
             'h1.post__title',
             'div.post__content',
             'marketing+digital',
-            5,
+            2,
             '',
-            False
+            True,
+            ''
+        ],
+        [
+            'TECHTUDO',
+            'https://www.techtudo.com.br/busca/?q=',
+            'div.widget--info__text-container a',
+            'div.title',
+            'div.content-text p.content-text__container',
+            'tecnologia',
+            2,
+            'https:',
+            False,
+            r"u=([^&]+)"
+        ],
+        [
+            'G1',
+            'https://g1.globo.com/busca/?q=',
+            'div.widget--info__text-container a',
+            'div.title h1.content-head__title',
+            'div.content-text p.content-text__container',
+            'tecnologia',
+            2,
+            'https:',
+            False,
+            r"u=([^&]+)"
         ]
     ]
 
@@ -179,9 +205,11 @@ if __name__ == '__main__':
         WebSite(
             row[0], row[1], row[2],
             row[3], row[4], row[5],
-            row[6], row[7], row[8]
+            row[6], row[7], row[8],
+            row[9]
         ) for row in sites
     ]
+
     results: list = []
     for s in site:
         results.append(crawler.search(s))
