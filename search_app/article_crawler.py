@@ -144,83 +144,17 @@ class Crawler:
 
 
 if __name__ == '__main__':
-<<<<<<< HEAD:article_crawler.py
-    # c = Content('page', 'aoskoaksoaoskoaskoaksoakoas', 'oksd')
-    # for i in c:
-    #     print(i)
-
-    sites = [
-        [
-            'BBC',
-            'https://www.bbc.com/portuguese/topics/c404v027pd4t',
-            'li.bbc-t44f9r a',
-            'h1.bbc-14gqcmb',
-            'div.bbc-1cvxiy9',
-            '',
-            2,
-            '',
-            True,
-            ''
-        ],
-        [
-            'CNN',
-            'https://www.cnnbrasil.com.br/?s=',
-            'li.home__list__item a',
-            'h1.post__title',
-            'div.post__content',
-            'marketing+digital',
-            2,
-            '',
-            True,
-            ''
-        ],
-        [
-            'TECHTUDO',
-            'https://www.techtudo.com.br/busca/?q=',
-            'div.widget--info__text-container a',
-            'div.title',
-            'div.content-text p.content-text__container',
-            'tecnologia',
-            2,
-            'https:',
-            False,
-            r"u=([^&]+)"
-        ],
-        [
-            'G1',
-            'https://g1.globo.com/busca/?q=',
-            'div.widget--info__text-container a',
-            'div.title h1.content-head__title',
-            'div.content-text p.content-text__container',
-            'tecnologia',
-            2,
-            'https:',
-            False,
-            r"u=([^&]+)"
-        ]
-    ]
-
-=======
     db = DBManager()
->>>>>>> c5a1c6d (Implementando ORM SQLAlchemy e Dockerizando o aplicativo.):search_app/article_crawler.py
     crawler = Crawler()
     data = db.select_data()
 
     site: list = [
         WebSite(
-<<<<<<< HEAD:article_crawler.py
-            row[0], row[1], row[2],
-            row[3], row[4], row[5],
-            row[6], row[7], row[8],
-            row[9]
-        ) for row in sites
-=======
             row.name_site, row.search_url, row.search_result_selector,
             row.title_selector, row.content_selector, row.topic,
             row.n_link, row.link_complement, row.is_absolute_url,
             row.url_pattern
         ) for row in data
->>>>>>> c5a1c6d (Implementando ORM SQLAlchemy e Dockerizando o aplicativo.):search_app/article_crawler.py
     ]
 
     results: list = []
