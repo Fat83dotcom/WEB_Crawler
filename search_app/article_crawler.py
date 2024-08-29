@@ -157,9 +157,9 @@ if __name__ == '__main__':
         ) for row in data
     ]
 
-    results: list = []
-    for s in site:
-        results.append(crawler.search(s))
+    results: list = [
+        crawler.search(s) for s in site
+    ]
 
     for result in results:
         for r in result:
